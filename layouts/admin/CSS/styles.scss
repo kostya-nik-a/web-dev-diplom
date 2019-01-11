@@ -1,0 +1,592 @@
+$font-stack: 'Roboto', sans-serif;
+
+$lilac: #63536C;
+$lightlilac: #BC95D6;
+$green: #16A6AF;
+$black: #000000;
+$white: #FFFFFF;
+$grey: #848484;
+$lightgrey: #EAE9EB;
+$startyellow: #FFEB85;
+$colors: 10;
+$degrees: 360 / $colors;
+
+$colwidth: 42px;
+$gapwidth: 20px;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: $font-stack;
+  font-size: 62.5%;
+}
+
+body {
+  background-image: url('../i/background.jpg');
+  background-color: rgba(0, 0, 0, 0.50);
+  background-blend-mode: multiply;
+  background-size: cover;
+  background-attachment: fixed;
+  counter-reset: num;
+}
+
+input[type='radio'], input[type='submit'], button, .conf-step__header {
+  cursor: pointer;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.conf-steps, .page-header {
+  width: 972px;
+  margin: 0 auto;
+}
+
+.conf-step__wrapper, .conf-step__header, .page-header {
+  padding: 35px $colwidth 35px (2 * $colwidth + $gapwidth);
+}
+
+.page-header {
+  color: $white;
+  text-transform: uppercase;
+  
+  .page-header__title {
+    margin: 0;
+    font-weight: 900;
+    font-size: 3.4rem;
+    
+    span {
+      font-weight: 100;
+    }
+  }
+  
+  .page-header__subtitle {
+    font-size: 1rem;
+    letter-spacing: 0.46em;
+  } 
+}
+
+.conf-step {
+  position: relative;
+  background-color: rgba(234, 233, 235, 0.95);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: $colwidth + $gapwidth;
+    margin-left: -1px;
+    top: 0;
+    bottom: 0;
+    display: block;    
+    width: 2px;
+    background-color: $lightlilac;
+  }  
+}
+
+.conf-step__header_opened + .conf-step__wrapper {
+  display: block;
+}
+
+.conf-step__header_closed + .conf-step__wrapper {
+  display: none;
+}
+
+.conf-step__header_closed::after {
+  transform: rotate(-90deg);
+}
+
+.conf-step__header {
+  position: relative;
+  box-sizing: border-box;
+  background-color: $lilac;
+  color: $white;
+  transition-property: all;
+  transition-duration: .6s;
+  transition-timing-function: ease;  
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: $colwidth + $gapwidth;
+    margin-left: -1px;
+    top: 0;
+    bottom: 0;
+    display: block;    
+    width: 2px;
+    background-color: $lightlilac;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 8px);
+    display: block;
+    right: $colwidth;
+    width: 24px;
+    height: 16px;
+    background-image: url('../i/switch.png');
+    background-size: 24px 16px;
+  }
+  
+  &:hover,
+  &:focus {
+    background-color: #89639e;
+  }  
+  
+  .conf-step__title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    counter-increment: num;
+    transition-property: all;
+    transition-duration: .6s;
+    transition-timing-function: ease;    
+    
+    &::before {
+      content: counter(num);
+      position: absolute;
+      display: block;
+      left: $colwidth + $gapwidth;
+      top: 50%;
+      margin-left: -22px;      
+      margin-top: -22px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 5px solid $lightlilac;
+      background-color: $white;
+      box-sizing: border-box;
+      color: $lilac;
+      font-weight: 900;
+      font-size: 2.8rem;
+      text-align: center;
+      letter-spacing: normal;
+    }
+  }
+    
+}
+
+.conf-step__header:hover {
+  .conf-step__title {
+    letter-spacing: 2px;
+    transition-property: all;
+    transition-duration: .6s;
+    transition-timing-function: ease;
+    
+    &::before {
+      letter-spacing: normal;
+    }
+  }
+}
+
+.conf-step:first-of-type .conf-step__header {
+  &::before {
+    top: 50%;
+  }  
+}
+
+.conf-step:last-of-type {
+  .conf-step__header {
+    &::before {
+      bottom: 50%;
+    }  
+  }
+  
+  &::before {
+    display: none;
+  }
+}
+
+.conf-step__paragraph {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: $black;
+  margin-bottom: 12px;
+}
+
+.conf-step__paragraph:not(:first-of-type) {
+  margin-top: 35px;
+}
+
+.conf-step__list {
+  list-style: none;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 14px 0 5px 25px;
+  
+  li {
+    position: relative;
+  }
+  
+  li + li {
+    margin-top: 10px;
+  }
+  
+  li::before {
+    content: '–';
+    position: absolute;
+    left: -14px;
+  }
+  
+}
+
+.conf-step__button {
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.24), 0px 0px 3px rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  border: none;
+  background-color: $white;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.4rem;
+  transition-property: background-color;
+  transition-duration: .5s;
+  transition-timing-function: ease;   
+  
+  &:hover,
+  &:focus{
+    background-color: #EEEAF1;
+    outline: none;  
+  }
+  
+  &:active {
+    position: relative;
+    top: 2px;
+    background-color: $lilac;
+    color: $white;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+  }
+  
+  & + & {
+    margin-left: 12px;
+  }
+  
+}
+
+.conf-step__buttons {
+  margin-top: 10px;
+}
+
+.conf-step__button-regular {
+  color: $lilac;
+  padding: 12px 32px;
+  margin-top: 17px;
+}
+
+.conf-step__button.conf-step__button-accent {
+  color: $white;
+  background-color: $green;
+  padding: 12px 32px;
+  margin-top: 17px;
+  
+  &:hover,
+  &:focus{
+    background-color: #2FC9D2;
+    outline: none;
+  }
+  
+  &:active {
+    position: relative;
+    top: 2px;
+    background-color: #146C72;
+    color: $white;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+  }  
+  
+}
+
+.conf-step__button-trash {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  vertical-align: text-top;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background-image: url('../i/trash-sprite.png');
+    background-position: 0 0;
+    background-size: 24px 12px;
+    background-repeat: no-repeat;
+  } 
+  
+  &:active::before {
+    background-position: -12px 0;
+  } 
+}
+
+.conf-step__legend {
+  color: $grey;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  
+  .multiplier {
+    font-family: monospace;
+    font-size: 18px;
+    padding: 0 10px;
+  }
+  
+  .conf-step__chair:not(:first-of-type) {
+    margin-left: 20px;
+  }  
+  
+}
+
+.conf-step__hint {
+  margin-top: 10px;
+}
+
+.conf-step__label {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: $grey;
+}
+
+.conf-step__input {
+  display: block;
+  width: 100px;
+  margin-top: 1px;
+  padding: 8px;
+  font-size: 1.6rem;
+  color: $black;
+  border: 1px solid #b7b7b7;
+  
+  &:focus {
+    outline: 1px #CF87FF solid;
+    outline-offset: -1px;
+  }
+}
+
+.conf-step__chair {
+  display: inline-block;
+  vertical-align: middle;
+  width: 26px;
+  height: 26px;
+  border-width: 2px;
+  border-style: solid;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.conf-step__chair_standart {
+  border-color: #393939;
+  background-color: #C4C4C4;
+}
+
+.conf-step__chair_vip {
+  border-color: #0a828a;
+  background-color: #b0d6d8;
+  background-image: url('../i/green-pattern.png');
+  background-repeat: repeat;
+}
+
+.conf-step__chair_disabled {
+  border-color: #C4C4C4;
+}
+
+
+.conf-step__selectors-box {
+  font-size: 0;
+  list-style: none;
+  margin-bottom: 15px;
+  
+  li {
+    position: relative;
+    display: inline-block;
+    font-size: 1.2rem;
+  }  
+  
+  .conf-step__radio {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    width: 80px;
+    height: 42px;
+    opacity: 0;
+  }  
+  
+  .conf-step__selector {
+    position: relative;
+    display: block;
+    padding: 13px 21px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.24), 0px 0px 3px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1.4rem;
+    transition-property: background-color;
+    transition-duration: .5s;
+    transition-timing-function: ease;
+    z-index: 5;  
+  }
+  
+  .conf-step__radio:checked + .conf-step__selector {
+    background-color: $white;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.24), 0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    transform: scale(1.1);
+    font-weight: 900;
+    font-size: 1.4rem;
+    z-index: 10;
+  }
+  
+  .conf-step__radio:hover + .conf-step__selector {
+    background-color: rgba(255, 255, 255, 0.90);
+  }   
+}
+
+.conf-step__hall {
+  position: relative;
+  padding: 62px 32px 34px;
+  border: 2px solid #000000;
+  text-align: center;
+  
+  &::before {
+    content: ' экран';
+    position: absolute;
+    top: 24px;
+    left: 1.2em;
+    right: 0;
+    font-size: 1.6rem;
+    letter-spacing: 1.2em;
+    text-transform: uppercase;
+  }
+  
+  .conf-step__chair {
+    cursor: pointer;
+  }
+  
+  .conf-step__hall-wrapper {
+    display: inline-block;
+    
+    .conf-step__row {
+      font-size: 0;
+    }
+    
+    .conf-step__row + .conf-step__row {
+      margin-top: 10px;
+    }
+    
+    .conf-step__chair + .conf-step__chair{
+      margin-left: 10px;
+    }
+    
+  }
+}
+
+.conf-step__movies {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  
+  .conf-step__movie {
+    position: relative;
+    width: calc((100% - 30px) / 3);
+    min-height: 52px;
+    padding: 8px 8px 8px 48px;
+    background: $startyellow;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    cursor: pointer;
+    
+    
+    &:nth-of-type(3n + 2) {
+      margin: 0 15px;
+    }
+    
+    &:nth-of-type(n + 4) {
+      margin-top: 15px;
+    }
+    
+    @for $i from 1 to $colors {
+      &:nth-of-type(#{$i}) {
+        background-color:adjust-hue($startyellow, $i * $degrees);
+      }
+    }    
+    
+  }
+  
+  .conf-step__movie-poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 38px;
+    height: 50px;
+  }
+  
+  .conf-step__movie-title {
+    font-weight: 500;
+    font-size: 1.4rem;
+  }
+  
+  .conf-step__movie-duration {
+    font-size: 1.4rem;
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.conf-step__seances-hall {
+  margin: 35px;
+}
+
+.conf-step__seances-title {
+  font-weight: 500;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+
+.conf-step__seances-timeline {
+  position: relative;
+  outline: 1px solid $grey;
+  padding: 10px 0;
+  height: 40px;
+  box-sizing: content-box;
+  width: calc(1440px * 0.5); //1440 минут в сутках. 1 минута = 0,5 пикселя. Блок фильма длиной 120 минут будет 60 пикселей по ширине.
+}
+
+.conf-step__seances-movie {
+  position: absolute;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  padding: 10px 2px 10px 10px;
+  
+  .conf-step__seances-movie-title {
+    overflow: hidden;
+    line-height: 10px;
+    height: 100%;
+  }
+  
+  .conf-step__seances-movie-start {
+    position: absolute;
+    bottom: -33px;
+    left: -14px;
+    color: $grey;
+    font-size: 1.2rem;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 1px;
+    height: 5px;
+    bottom: -17px;
+    left: 0;
+    background-color: $grey;
+  }
+  
+}
